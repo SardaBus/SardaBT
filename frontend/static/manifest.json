@@ -1,0 +1,17 @@
+{
+    "short_name": "Sarda Bus",
+    "name": "Sarda Bus Tracker",
+    "start_url": "/",
+    "icons": [
+      {
+        "src": "SardaLogo.png",
+        "type": "image/png",
+        "sizes": "512x512"
+      }
+    ],
+    "background_color": "#F2EEEC",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#F2EEEC",
+    "description":"Bus Tracker"
+}
