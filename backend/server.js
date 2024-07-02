@@ -45,9 +45,9 @@ server.post('/api/refresh-token',(req,res)=>{
     }
     try{
         const decoded=jwt.verify(refreshToken,REFRESH_SECRET_KEY);
-        const token=jwt.sign({username:decoded.username,usertype:decoded.usertype},SECRET_KEY,{expiresIn:15m});
+        const token=jwt.sign({username:decoded.username,usertype:decoded.usertype},SECRET_KEY,{expiresIn:'15m'});
         
-        const newRefreshToken=jwt.sign({username:decoded.username,usertype:decoded.usertype},REFRESH_SECRET_KEY,{expiresIn:7d});
+        const newRefreshToken=jwt.sign({username:decoded.username,usertype:decoded.usertype},REFRESH_SECRET_KEY,{expiresIn:'7d'});
         res.json({token,newRefreshToken});
     }catch(err){
         return res.status(401).send('Invalid Refresh Token');
