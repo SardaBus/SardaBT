@@ -12,7 +12,10 @@
     <nav class="p-3">
         <a class="bg-yellow-400 font-semibold text-white p-2 shadow-md hover:shadow-sm transition-all rounded-sm" href="/">Home</a>
         {#if $auth.user}
-            <button class="bg-yellow-400 font-semibold text-white p-2 shadow-md hover:shadow-sm transition-all rounded-sm" on:click={() => auth.logout()}>Logout</button>
+            <button class="bg-yellow-400 font-semibold text-white p-2 shadow-md hover:shadow-sm transition-all rounded-sm" on:click={() => {
+                auth.logout();
+                window.location.href="./login";
+            }}>Logout</button>
         {:else}
             <a class="bg-yellow-400 font-semibold text-white p-2 shadow-md hover:shadow-sm transition-all rounded-sm" href="/login">Login</a>
             <a class="bg-yellow-400 font-semibold text-white p-2 shadow-md hover:shadow-sm transition-all rounded-sm" href="/register">Register</a>
