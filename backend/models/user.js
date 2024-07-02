@@ -1,5 +1,8 @@
 const {Sequelize,DataTypes}=require('sequelize');
-const sequelize=new Sequelize('sqlite::memory:');
+const sequelize=new Sequelize({
+    dialect: 'sqlite',
+    storage: './database.sqlite'
+});
 
 const User=sequelize.define('User',{
     username:{
@@ -14,6 +17,7 @@ const User=sequelize.define('User',{
     usertype:{
         type:DataTypes.STRING,
         allowNull:false,
+        values: ['admin', 'employee', 'driver']
     }
 });
 
