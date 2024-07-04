@@ -1,10 +1,10 @@
-const express=require('express');
-const bcrypt=require('bcryptjs');
-const jwt=require('jsonwebtoken');
-const cors=require('cors');
-const {User,sequelize}=require('./models/user');
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const cors = require('cors');
+const {User,sequelize} = require('./models/user');
 
-const app=express();
+const app = express();
 
 app.use(cors());
 app.use(express.json());
@@ -12,6 +12,19 @@ app.use(express.json());
 const SECRET_KEY='sarda';
 const REFRESH_SECRET_KEY='sardabt';
 
+let busLocations = {};
+
+app.post('/api/location',(req,res) => {
+    const {id,lat,lng}=req.body;
+    busLocations[id]= {lat,lng};
+    res.status(200).json({ message: 'Location updated'});
+});
+
+app.get('/api/locations',(req,res) => {
+    res.status(200).json(busLocations);
+});
+
+//register endpoint
 app.post('/api/register',async(req,res)=>{
     const {username,password,usertype}=req.body;
     const hashedPassword=await bcrypt.hash(password,10);

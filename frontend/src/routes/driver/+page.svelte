@@ -1,13 +1,16 @@
 <script>
     import { auth } from '../../stores/auth';
     import { onMount } from 'svelte';
+    
+    
+    let isTracking = false;
+    let busId = '1';
+    let watchId;
+
     onMount(() => {
         const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
         auth.checkAuth();
     });
-
-    let isTracking = false;
-    let busId = '1';
 
     function startTracking() {
         if (!busId) {
@@ -21,14 +24,25 @@
 
     function stopTracking() {
         isTracking = false;
+        if (watchId) {
+          navigator.geolocation.clearWatch(watchId);
+        }
     }
 
     function trackLocation() {
         if (navigator.geolocation) {
-          navigator.geolocation.watchPosition(position => {
+          watchId = navigator.geolocation.watchPosition(position => {
             if (isTracking) {
               const { latitude, longitude } = position.coords;
-              console.log({ id: busId, lat: latitude, lng: longitude });
+              const response = fetch('http://localhost:3000/api/location', {
+                method:'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id:busId, lat:latitude, lng:longitude }),
+              }).then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
             }
           }, error => {
             console.error(error);
