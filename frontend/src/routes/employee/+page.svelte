@@ -5,7 +5,11 @@
     onMount(() => {
         const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
         auth.checkAuth();
+        setInterval(function() {fetch('http://localhost:3000/api/locations').then(response => response.json())
+                                                    .then(data => console.log(data))}, 10000)
     });
+
+    
 </script>
 
 <main>
