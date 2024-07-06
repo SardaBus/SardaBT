@@ -1,7 +1,6 @@
 <script>
     import "../app.css";
     import { auth } from "../stores/auth";
-    
 </script>
 
 <header class="bg-yellow-200 mt-2 p-5 flex flex-wrap gap-4 shadow-sm shadow-black justify-between">
