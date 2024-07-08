@@ -8,6 +8,7 @@
     let isJourneyActive = true;
 
     onMount(() => {
+        auth.checkAuth();
         const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
 
         const busIcon = '/BusMarker.png'; // Path to the icon in the static directory
@@ -23,7 +24,6 @@
             popupHtml: 'Sarda Bus'
         });
 
-        auth.checkAuth();
         intervalId = setInterval(fetchBusLocations , 10000);
     });
 

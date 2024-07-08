@@ -8,8 +8,8 @@
     let watchId;
 
     onMount(() => {
-        const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
         auth.checkAuth();
+        const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
     });
 
     function startTracking() {

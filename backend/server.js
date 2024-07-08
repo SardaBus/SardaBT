@@ -3,17 +3,16 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const {User,sequelize} = require('./models/user');
+const getTokenRoute = require('./get-token');
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use('/api', getTokenRoute);
 
 const SECRET_KEY='sarda';
 const REFRESH_SECRET_KEY='sardabt';
-const grant_type = 'client_credentials';
-const client_id = '96dHZVzsAuv-SZd-ImmjvMIDbZbOH3BfMY-a3G0OvjzfX-drtxGKWLyluFV3IMAH0_e51_I1oOnNl1OXuzXBhQ=='
-const client_secret = 'lrFxI-iSEg892AiBZWXI6Xr7LeL9uFh567Cwv-8nQPklYRnXus2FXQinEWvH3lq3JTmeYyhahOnYdO0QCANtwBYQTdKlmd4p'
 
 let busLocations = {};
 
@@ -25,27 +24,6 @@ app.post('/api/location',(req,res) => {
 
 app.get('/api/locations',(req,res) => {
     res.status(200).json(busLocations);
-});
-
-app.get('/api/get-token', async (req, res) => {
-    try {
-        const response = await fetch(`https://outpost.mappls.com/api/security/oauth/token?grant_type=${grant_type}&client_id=${client_id}&client_secret=${client_secret}`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        });
-    
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-    
-        const data = await response.json();
-        res.status(200).json({ token: data.access_token });
-      } catch (error) {
-        console.error('Error fetching token:', error);
-        res.status(500).json({ error: 'Failed to fetch token' });
-      }
 });
 
 //register endpoint
