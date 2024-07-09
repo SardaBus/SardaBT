@@ -47,7 +47,7 @@
           }, error => {
             console.error(error);
           }, {
-            enableHighAccuracy: false,
+            enableHighAccuracy: true,
             maximumAge: 0
           });
         } else {
