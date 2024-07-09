@@ -17,7 +17,6 @@
             }}>Logout</button>
         {:else}
             <a class="bg-yellow-400 font-semibold text-white p-2 shadow-md hover:shadow-sm transition-all rounded-sm" href="/login">Login</a>
-            <a class="bg-yellow-400 font-semibold text-white p-2 shadow-md hover:shadow-sm transition-all rounded-sm" href="/register">Register</a>
         {/if}
     </nav>
 </header>

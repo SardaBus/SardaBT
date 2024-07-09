@@ -11,7 +11,8 @@ function createAuth() {
     const { subscribe, set, update } = writable({
         token: browser && localStorage.getItem(TOKEN_KEY),
         user: null,
-        usertype: null
+        usertype: null,
+        busPreference: null
     });
 
     async function refreshAuthToken() {
@@ -25,17 +26,17 @@ function createAuth() {
                     localStorage.setItem(REFRESH_TOKEN_KEY, newRefreshToken);
                 }
                 const decoded = jwtDecode(token);
-                set({ token, user: decoded.username, usertype: decoded.usertype });
+                set({ token, user: decoded.username, usertype: decoded.usertype, busPreference: decoded.busPreference });
             } catch (err) {
                 console.error('Token refresh error', err);
-                set({ token: null, user: null, usertype: null });
+                set({ token: null, user: null, usertype: null, busPreference: null });
                 if (browser) {
                     localStorage.removeItem(TOKEN_KEY);
                     localStorage.removeItem(REFRESH_TOKEN_KEY);
                 }
             }
         } else {
-            set({ token: null, user: null, usertype: null });
+            set({ token: null, user: null, usertype: null, busPreference: null });
         }
     }
 
@@ -50,10 +51,10 @@ function createAuth() {
                     localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
                 }
                 const decoded = jwtDecode(token);
-                set({ token, user: decoded.username, usertype: decoded.usertype });
+                set({ token, user: decoded.username, usertype: decoded.usertype, busPreference: decoded.busPreference });
             } catch (err) {
                 console.error('Login error', err);
-                set({ token: null, user: null, usertype: null });
+                set({ token: null, user: null, usertype: null, busPreference: null });
             }
         },
         logout: () => {
@@ -61,7 +62,7 @@ function createAuth() {
                 localStorage.removeItem(TOKEN_KEY);
                 localStorage.removeItem(REFRESH_TOKEN_KEY);
             }
-            set({ token: null, user: null, usertype: null });
+            set({ token: null, user: null, usertype: null, busPreference: null });
         },
         checkAuth: () => {
             const token = browser && localStorage.getItem(TOKEN_KEY);
@@ -71,7 +72,7 @@ function createAuth() {
                 if (decoded.exp < now) {
                     refreshAuthToken();
                 } else {
-                    set({ token, user: decoded.username, usertype: decoded.usertype });
+                    set({ token, user: decoded.username, usertype: decoded.usertype, busPreference: decoded.busPreference });
                 }
             } else {
                 refreshAuthToken();
