@@ -10,6 +10,13 @@
     let busPreference = 'SN';
     let showPassword = false;
 
+    onMount(() => {
+        auth.checkAuth();
+        if($auth.usertype != "admin") {
+            window.location.href = "./Unauthorized";
+        }
+    })
+
     async function handleRegister() {
         try {
             await axios.post('http://localhost:3000/api/register', { username, password, usertype, busPreference });

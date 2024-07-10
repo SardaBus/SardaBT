@@ -6,6 +6,9 @@
 
     onMount(() => {
         auth.checkAuth();
+        if($auth.usertype != "admin") {
+            window.location.href = "./Unauthorized";
+        }
     })
 </script>
 

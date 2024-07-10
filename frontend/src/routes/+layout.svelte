@@ -5,7 +5,7 @@
 
 <header class="bg-yellow-200 mt-2 p-5 flex flex-wrap gap-4 shadow-sm shadow-black justify-between">
     <div class="flex flex-wrap gap-4">
-        <img src="SardaLogo.png" alt="Logo" class="h-12 drop-shadow-md">
+        <img src="SardaLogo.png" alt="Logo" class="h-12 -mt-1 drop-shadow-md">
         <h1 class="text-3xl font-semibold drop-shadow-md">Bus Tracker</h1>
     </div>
     <nav class="p-3">

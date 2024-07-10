@@ -4,11 +4,15 @@
     
     
     let isTracking = false;
-    let busId = '1';
+    let busId = '';
     let watchId;
 
     onMount(() => {
         auth.checkAuth();
+        if($auth.usertype == "employee") {
+            window.location.href = "./Unauthorized";
+        }
+        busId = $auth.busPreference;
         const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
     });
 

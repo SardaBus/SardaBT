@@ -10,6 +10,9 @@
 
     onMount(() => {
         auth.checkAuth();
+        if($auth.usertype == "driver") {
+            window.location.href = "./Unauthorized";
+        }
         const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
 
         const busIcon = '/BusMarker.png'; // Path to the icon in the static directory
@@ -33,8 +36,8 @@
             fetch('http://localhost:3000/api/locations')
             .then(response => response.json())
             .then(data => {
-                console.log(data[1]);
-                marker.setPosition({"lat":data[1].lat,"lng":data[1].lng});
+                console.log(data[$auth.busPreference]);
+                marker.setPosition({"lat":data[$auth.busPreference].lat,"lng":data[$auth.busPreference].lng});
             })
             .catch(error => console.error('Error:', error));
         }
