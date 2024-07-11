@@ -13,20 +13,21 @@
         if($auth.usertype == "driver") {
             window.location.href = "./Unauthorized";
         }
-        const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
+        setTimeout(() => {
+            const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
+            const busIcon = '/BusMarker.png'; // Path to the icon in the static directory
 
-        const busIcon = '/BusMarker.png'; // Path to the icon in the static directory
-
-        marker = new mappls.Marker({
-            map: map,
-            position: { lat: 17.822122987416197, lng: 83.20505999018316 },
-            icon: busIcon,
-            offset: [0, 10],
-            width: 70,
-            height: 70,
-            popupOptions: true,
-            popupHtml: 'Sarda Bus'
-        });
+            marker = new mappls.Marker({
+                map: map,
+                position: { lat: 17.822122987416197, lng: 83.20505999018316 },
+                icon: busIcon,
+                offset: [0, 10],
+                width: 70,
+                height: 70,
+                popupOptions: true,
+                popupHtml: 'Sarda Bus'
+            });
+        }, 500);
 
         intervalId = setInterval(fetchBusLocations , 10000);
     });

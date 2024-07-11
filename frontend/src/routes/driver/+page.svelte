@@ -13,7 +13,9 @@
             window.location.href = "./Unauthorized";
         }
         busId = $auth.busPreference;
-        const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
+        setTimeout(() => {
+          const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
+        }, 500);
     });
 
     function startTracking() {
@@ -38,7 +40,7 @@
           watchId = navigator.geolocation.watchPosition(position => {
             if (isTracking) {
               const { latitude, longitude } = position.coords;
-              const response = fetch('http://localhost:3000/api/location', {
+              const response = fetch('https://sardabackend.onrender.com/api/location', {
                 method:'POST',
                 headers: {
                   'Content-Type': 'application/json',
