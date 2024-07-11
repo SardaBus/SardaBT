@@ -3,7 +3,7 @@ import { browser } from '$app/environment';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode'; // Correct the import
 
-const API_URL = 'http://localhost:3000'; // Ensure the API URL is correct
+const API_URL = 'https://sardabackend.onrender.com'; // Ensure the API URL is correct
 const TOKEN_KEY = 'auth_token';
 const REFRESH_TOKEN_KEY = 'refresh_token';
 
