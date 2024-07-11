@@ -7,6 +7,7 @@
     let intervalId;
     let isJourneyActive = true;
     let marker;
+    let adminBusId = "NAD";
 
     onMount(() => {
         auth.checkAuth();
@@ -37,8 +38,14 @@
             fetch('https://sardabackend.onrender.com/api/locations')
             .then(response => response.json())
             .then(data => {
-                console.log(data[$auth.busPreference]);
-                marker.setPosition({"lat":data[$auth.busPreference].lat,"lng":data[$auth.busPreference].lng});
+                if ($auth.busPreference == "both") {
+                    console.log(data);
+                    marker.setPosition({"lat":data[adminBusId].lat,"lng":data[adminBusId].lng});
+                }
+                else {
+                    console.log(data);
+                    marker.setPosition({"lat":data[$auth.busPreference].lat,"lng":data[$auth.busPreference].lng});
+                }
             })
             .catch(error => console.error('Error:', error));
         }
@@ -56,5 +63,11 @@
     <div class="m-2 h-96 w-100 bg-yellow-200">
         <div id="map" class="h-full"></div>
     </div>
+    {#if $auth.busPreference == 'both'}
+    <select class="p-2 m-2 shadow-md w-64" bind:value={adminBusId}>
+        <option value="NAD">NAD</option>
+        <option value="SN">SN</option>
+    </select><br>
+    {/if}
     <button class="bg-yellow-500 hover:bg-yellow-800 font-semibold hover:text-white shadow-black shadow-md py-3 px-5" on:click={stopJourney}>Stop Journey</button>
 </main>
