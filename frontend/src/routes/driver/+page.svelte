@@ -14,7 +14,9 @@
             window.location.href = "./Unauthorized";
         }
         busId = $auth.busPreference;
-        const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
+        setTimeout(() => {
+          const map = new mappls.Map('map', {center:{lat:17.822122987416197,lng:83.20505999018316} });
+        }, 500);
     });
 
     function startTracking() {

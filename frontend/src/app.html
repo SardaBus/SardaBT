@@ -8,16 +8,25 @@
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents">%sveltekit.body%</div>
 		<script>
 			fetch('https://sardabackend.onrender.com/api/get-token/')
-			  	.then(response => response.json())
-			  	.then(data => {
+				.then(response => response.json())
+				.then(data => {
+					const mapToken = data.token;
+	
 					const script = document.createElement('script');
-					script.src = `https://apis.mappls.com/advancedmaps/api/${data.token}/map_sdk?v=3.0&layer=vector`;
+					script.src = `https://apis.mappls.com/advancedmaps/api/${mapToken}/map_sdk?v=3.0&layer=vector`;
+					script.onload = () => {
+						console.log('Mappls script loaded successfully');
+						// Any initialization code for mappls can go here
+					};
+					script.onerror = () => {
+						console.error('Error loading Mappls script');
+					};
 					document.head.appendChild(script);
-			  	})
-			  	.catch(error => console.error('Error fetching token:', error));
+				})
+				.catch(error => console.error('Error fetching token:', error));
 		</script>
+		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>
