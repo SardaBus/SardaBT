@@ -6,6 +6,7 @@
     let isTracking = false;
     let busId = '';
     let watchId;
+    let intervalId;
 
     onMount(() => {
         auth.checkAuth();
@@ -28,35 +29,43 @@
 
     function stopTracking() {
         isTracking = false;
+        clearInterval(intervalId);
         if (watchId) {
           navigator.geolocation.clearWatch(watchId);
         }
+        console.log("Tracking stopped.")
     }
 
     function trackLocation() {
-        if (navigator.geolocation) {
-          watchId = navigator.geolocation.watchPosition(position => {
+      if (navigator.geolocation) {
+        watchId = navigator.geolocation.watchPosition(position => {
+            const { latitude, longitude } = position.coords;
             if (isTracking) {
-              const { latitude, longitude } = position.coords;
-              const response = fetch('http://localhost:3000/api/location', {
-                method:'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ id:busId, lat:latitude, lng:longitude }),
-              }).then(response => response.json())
-                .then(data => console.log(data))
-                .catch(error => console.error('Error:', error));
+                // Clear any previous interval to avoid multiple intervals running
+                clearInterval(intervalId);
+
+                intervalId = setInterval(() => {
+                    fetch('https://sardabackend.onrender.com/api/location', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ id: busId, lat: latitude, lng: longitude }),
+                    })
+                    .then(response => response.json())
+                    .then(data => console.log(data, { id: busId, lat: latitude, lng: longitude }))
+                    .catch(error => console.error('Error:', error));
+                }, 5000); // send location every 5 seconds
             }
-          }, error => {
+        }, error => {
             console.error(error);
-          }, {
+        }, {
             enableHighAccuracy: true,
-            maximumAge: 0
-          });
-        } else {
-          alert('Geolocation is not supported by this browser.');
-        }
+            maximumAge: 0,
+        });
+    } else {
+        alert('Geolocation is not supported by this browser.');
+    }
     }
 </script>
 

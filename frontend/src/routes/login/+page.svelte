@@ -39,14 +39,14 @@
         showPassword = !showPassword;
     }
 </script>
-<main class="text-center p-20 md:p-12 sm:p-12">
-    <div class="bg-yellow-200 p-5 flex flex-wrap justify-around rounded-md shadow-sm shadow-black">
-        <img src="SardaLogo.png" alt="" class="lg:h-48 h-40 mt-4 drop-shadow-lg hover:drop-shadow-md transition-all">
+<main class="text-center lg:p-20 p-10">
+    <div class="bg-yellow-200 lg:p-5 p-2 flex flex-wrap justify-around rounded-md shadow-sm shadow-black">
+        <img src="SardaLogo.png" alt="" class="lg:h-48 md:h-40 sm:h-28 mt-4 drop-shadow-lg hover:drop-shadow-md transition-all">
         <div>
             <h1 class="font-bold text-xl m-4">Login</h1>
             <form on:submit|preventDefault={handleLogin} class="">
-                <input  class="p-2 m-2 shadow-md w-64" type="text" placeholder="Username" bind:value={username} required /><br>
-                <div class="relative inline-block w-64">
+                <input  class="p-2 m-2 shadow-md lg:w-64 w-52" type="text" placeholder="Username" bind:value={username} required /><br>
+                <div class="relative inline-block lg:w-64 w-52">
                     {#if showPassword}
                         <input  class="p-2 shadow-md w-full" type="text" placeholder="Password" bind:value={password} required />
                     {:else}
