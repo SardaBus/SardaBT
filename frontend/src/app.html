@@ -10,7 +10,7 @@
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">%sveltekit.body%</div>
 		<script>
-			fetch('http://localhost:3000/api/get-token')
+			fetch('https://sardabackend.onrender.com/api/get-token/')
 			  	.then(response => response.json())
 			  	.then(data => {
 					const script = document.createElement('script');

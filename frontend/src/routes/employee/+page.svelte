@@ -33,7 +33,7 @@
 
     function fetchBusLocations(){
         if (isJourneyActive){
-            fetch('http://localhost:3000/api/locations')
+            fetch('https://sardabackend.onrender.com/api/locations')
             .then(response => response.json())
             .then(data => {
                 console.log(data[$auth.busPreference]);

@@ -19,7 +19,7 @@
 
     async function handleRegister() {
         try {
-            await axios.post('http://localhost:3000/api/register', { username, password, usertype, busPreference });
+            await axios.post('https://sardabackend.onrender.com/api/register', { username, password, usertype, busPreference });
             await auth.login(username, password);
             goto('./login');
         } catch (err) {
